@@ -8,6 +8,7 @@ const path = require('path');
 const routes = require('./routes');
 const userRoutes = require('./routes/users');
 const courseRoutes = require('./routes/courses');
+const cors = require('cors');
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -27,6 +28,9 @@ app.use(express.static(`${rest_api_sql_dir}/public`));
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
+
+//Enable all CORS Requests
+app.use(cors());
 
 //Add routes
 app.use('/', routes);
