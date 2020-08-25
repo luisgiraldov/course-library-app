@@ -209,7 +209,7 @@ body {
 .header {
   background: #57496e;
   padding: 20px 0;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 /* line 17, ../sass/global.sass */
 .header--logo {
@@ -803,6 +803,7 @@ body {
 	margin-top: 5px;
 }
 .tilesWrap li button {
+  z-index: 10;
 	background: transparent;
 	border: 1px solid #b7b7b7;
 	padding: 10px 20px;
@@ -906,4 +907,62 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 	background: #FC354C;
   background: -webkit-linear-gradient(to right, #0ABFBC, #FC354C);
   background: linear-gradient(to right, #0ABFBC, #FC354C);
+}
+
+.hero-background {
+  display: none;
+  position: relative;
+  height: 100vh;
+  z-index: 1;
+  background: linear-gradient(
+       rgba(0, 0, 0, 0.5),
+       rgba(0, 0, 0, 0.5)
+     ),
+     url("../images/courses.jpg") no-repeat center;
+    background-size: cover;
+    overflow: hidden;
+    opacity: 0.5;
+    -webkit-filter: blur(4px);
+	filter: blur(4px);
+  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
+}
+
+.hero-text-container {
+  z-index:2;
+  background:rgba(0,0,0,0.2);
+  padding:2rem;
+  border:1px solid rgba(0,0,0,0.1);
+  border-radius:3px;
+}
+
+.hero-text-container h2 {
+  color: white;
+  font-size: 4rem;
+}
+
+.hero-text-container p {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.hero-text-container button {
+  background: transparent;
+	border: 1px solid #b7b7b7;
+	padding: 10px 20px;
+	color: #b7b7b7;
+  border-radius: 3px;
+}
+
+/*// Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+  .hero-background {
+    display: block;
+  }
+  .hero-text-container {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    padding: 4rem
+  }
 }
