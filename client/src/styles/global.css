@@ -816,7 +816,20 @@ body {
 	cursor: pointer;
 	overflow: hidden;
 }
-.tilesWrap li button:before {
+/* Hero button */
+.goToBtn {
+  background: transparent;
+  border: 1px solid #b7b7b7;
+  padding: 10px 20px;
+  color: #b7b7b7;
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+}
+.tilesWrap li button:before,
+.goToBtn:before {
 	content: '';
 	position: absolute;
 	height: 100%;
@@ -834,10 +847,12 @@ body {
 	transform: translateY(5px);
 	opacity: 1;
 }
-.tilesWrap li button:hover {
+.tilesWrap li button:hover,
+.goToBtn:hover {
 	color: #262a2b;
 }
-.tilesWrap li button:hover:before {
+.tilesWrap li button:hover:before,
+.goToBtn:hover:before {
 	left: 0;
 	opacity: 1;
 }
@@ -845,7 +860,6 @@ body {
 	top: 0px;
 	opacity: 0.6;
 }
-
 .tilesWrap li:before {
 	content: '';
 	position: absolute;
