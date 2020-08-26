@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
-import helper from './helper';
+import Data from './Data';
 
 const Context = React.createContext();
 
 export class Provider extends Component {
-    state = {
-        courses: null
+
+    constructor() {
+        super();
+        this.data = new Data();
     }
 
     render() {
-        helper.getCourses('http://localhost:5000/api/courses')
-        .then(data => this.setState(() => {
-            return {
-                courses: data
-            };
-        }))
-        .catch(err => console.log('Error!', err));
+        const value = {
+            data: this.data,
+        };
         
         return (
-            <Context.Provider value={this.state}>
+            <Context.Provider value={value}>
                 {this.props.children}
             </Context.Provider>
         );
@@ -26,14 +24,14 @@ export class Provider extends Component {
 }
 
 export const Consumer = Context.Consumer;
-/**
- * A higher-order component that wraps the provided component in a Context Consumer component.
- * @param {class} Component - A React component.
- * @returns {function} A higher-order component.
- */
+// /**
+//  * A higher-order component that wraps the provided component in a Context Consumer component.
+//  * @param {class} Component - A React component.
+//  * @returns {function} A higher-order component.
+//  */
 
  export default function withContext(Component) {
-    return function ContextComponent(props) {
+    return function contextComponent(props) {
         return (
             <Context.Consumer>
                 {context => <Component {...props} context={context} />}
@@ -41,3 +39,4 @@ export const Consumer = Context.Consumer;
         );
     }
  }
+

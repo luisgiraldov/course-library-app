@@ -12,18 +12,18 @@ import CourseDetail from './components/CourseDetail';
 import withContext from './Context';
 
 // //Connect the Header component to context
-// const HeaderWithContext = withContext(Header);
+const HeaderWithContext = withContext(Header);
 // //Connect the Courses component to context
-// const CoursesWithContext = withContext(Courses);
+const CoursesWithContext = withContext(Courses);
 
 export default () => (
   <Router>
     <div>
-      <Header />
+      <HeaderWithContext />
       <hr />
 
       <Switch>
-        <Route exact path="/" component={Courses} />
+        <Route exact path="/" component={CoursesWithContext} />
         <Route path="/courses/:id" component={CourseDetail} />
         {/* <PrivateRoute path="/authenticated" component={AuthWithContext} />
         <PrivateRoute path="/settings" component={AuthWithContext} />

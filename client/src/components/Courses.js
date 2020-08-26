@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/global.css';
-import helper from '../helper';
 import { Link } from 'react-router-dom';
 
-const Courses = () => {
+const Courses = ({ context }) => {
 
     const [courses, setCourses] = useState(['none']);
     useEffect( () => {
-        helper.getCourses('http://localhost:5000/api/courses')
+        context.data.getCourses()
         .then(data => setCourses(data.Courses))
         .catch(err => console.log('Error!', err));
-    }, []);
+    }, [context.data]);
 
     return(
         <div>
