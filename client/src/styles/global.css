@@ -802,7 +802,8 @@ body {
 	color: #b7b7b7;
 	margin-top: 5px;
 }
-.tilesWrap li button {
+.tilesWrap li a {
+  display: inline-block;
   z-index: 10;
 	background: transparent;
 	border: 1px solid #b7b7b7;
@@ -828,7 +829,7 @@ body {
   cursor: pointer;
   overflow: hidden;
 }
-.tilesWrap li button:before,
+.tilesWrap li a:before,
 .goToBtn:before {
 	content: '';
 	position: absolute;
@@ -843,15 +844,15 @@ body {
 	transition: all 0.3s ease-in-out;
 	
 }
-.tilesWrap li:hover button {
+.tilesWrap li:hover a {
 	transform: translateY(5px);
 	opacity: 1;
 }
-.tilesWrap li button:hover,
+.tilesWrap li a:hover,
 .goToBtn:hover {
 	color: #262a2b;
 }
-.tilesWrap li button:hover:before,
+.tilesWrap li a:hover:before,
 .goToBtn:hover:before {
 	left: 0;
 	opacity: 1;

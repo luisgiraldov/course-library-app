@@ -9,7 +9,7 @@ const Courses = () => {
     useEffect( () => {
         helper.getCourses('http://localhost:5000/api/courses')
         .then(data => setCourses(data.Courses))
-        .catch(err => console.log('Oh noes!', err));
+        .catch(err => console.log('Error!', err));
     }, []);
 
     return(
@@ -30,7 +30,7 @@ const Courses = () => {
                                     <h2>{ id }</h2>
                                     <h3>{ course.title }</h3>
                                     <p>{ course.description }</p>
-                                    <button><Link to={`/courses/${id}`}>Read more</Link></button>
+                                    <Link to={`/courses/${id}`}>Read more</Link>
                                 </li>
                     })
                 }
@@ -38,7 +38,7 @@ const Courses = () => {
                             <h2>+</h2>
                             <h3>Add New Course</h3>
                             <p>Ready with your new class, create your new course here!</p>
-                            <button>Add</button>
+                            <Link to={`#`}>Add</Link>
                 </li>
             </ul>
         </div>

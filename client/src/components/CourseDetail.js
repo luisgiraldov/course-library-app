@@ -3,6 +3,7 @@ import '../styles/global.css';
 import helper from '../helper';
 import { Link } from 'react-router-dom';
 
+
 const CourseDetails = () => {
     return (
         <div className="actions--bar">
