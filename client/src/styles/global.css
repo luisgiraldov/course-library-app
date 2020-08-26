@@ -258,7 +258,7 @@ body {
   border-bottom: 1px solid #d5f9fe;
   background: #f8feff;
   padding: 20px 0;
-  margin-top: -30px;
+  /* margin-top: -30px; */
 }
 /* line 2, ../sass/mixins.sass */
 .actions--bar:before, .actions--bar:after {
