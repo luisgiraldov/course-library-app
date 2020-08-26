@@ -816,7 +816,7 @@ body {
 	cursor: pointer;
 	overflow: hidden;
 }
-/* Hero button */
+/* Hero button (goToBtn) code*/
 .goToBtn {
   background: transparent;
   border: 1px solid #b7b7b7;
