@@ -7,8 +7,8 @@ const Courses = ({ context }) => {
     const [courses, setCourses] = useState(['none']);
     useEffect( () => {
         context.data.getCourses()
-        .then(data => setCourses(data.Courses))
-        .catch(err => console.log('Error!', err));
+            .then(data => setCourses(data.Courses))
+            .catch(err => console.log('Error!', err));
     }, [context.data]);
 
     return(

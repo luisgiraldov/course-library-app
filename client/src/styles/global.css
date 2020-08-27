@@ -977,7 +977,27 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   border-radius: 3px;
 }
 
-/*// Large devices (desktops, 992px and up)*/
+ /* ==========================================================================
+  Media Queries
+  ========================================================================== */
+  
+/* Small devices (landscape phones, up to 768px) */
+@media (max-width: 767px) { 
+  .small-devices {
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .course--detail {
+    margin-top: 0;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
   .hero-background {
     display: block;
