@@ -18,11 +18,9 @@ const CourseDetails = ({ context }) => {
     useEffect( () => {
         context.data.getCourseDetails(id)
             .then( data => setCourse(data.CourseFound[0]) )
-            // .then( data => console.log(data.CourseFound[0]) )
             .catch( err => console.log('Error!', err) );
     }, [context.data, id]);
 
-    console.log("Returned: ", course);
     // Get the list of materials, and give them an id to pass key to react
     let materialsNeeded = course.materialsNeeded ? 
                             course.materialsNeeded.split(", ") 
@@ -37,20 +35,18 @@ const CourseDetails = ({ context }) => {
         return item;
     })
 
-    console.log(materialsNeeded);
-
     return (
             <div>
                 <div className="actions--bar">
                     <div className="bounds">
                         <div className="grid-100">
                             <span>
-                                <Link className="button" to="#">
+                                <button className="button">
                                     Update Course
-                                </Link>
-                                <Link className="button" to="#">
+                                </button>
+                                <button className="button">
                                     Delete Course
-                                </Link>
+                                </button>
                             </span>
                             <Link className="button button-secondary" to="/">Return to List</Link>
                         </div>
