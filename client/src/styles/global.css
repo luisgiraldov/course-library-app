@@ -590,6 +590,7 @@ p {
 .signin,
 .signup {
   margin-top: 60px;
+  color: #b7b7b7;
 }
 
 /* line 468, ../sass/global.sass */
@@ -975,6 +976,10 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 	padding: 10px 20px;
 	color: #b7b7b7;
   border-radius: 3px;
+}
+
+.nav-content {
+  display: inline-block;
 }
 
  /* ==========================================================================

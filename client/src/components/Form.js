@@ -6,6 +6,7 @@ export default (props) => {
         errors,
         submit,
         submitButtonText,
+        elements,
     } = props;
 
     function handleSubmit(event){
