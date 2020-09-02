@@ -33,7 +33,7 @@ export class Provider extends Component {
             </Context.Provider>
         );
     }
-
+    //receives emailAddress that would be the username
     signIn = async (username, password) => {
         const user = await this.data.getUser(username, password);
         if(user !== null) {
