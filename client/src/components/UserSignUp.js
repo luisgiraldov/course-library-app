@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
+import validators from '../validators';
 
 export default class UserSignUp extends Component {
     state = {
-        name: '',
-        username: '',
+        firstName: '',
+        lastName: '',
+        emailAddress: '',
         password: '',
+        confirmPassword: '',
         errors: [],
     }
 
     render() {
         const {
-            name,
-            username,
+            firstName,
+            lastName,
+            emailAddress,
             password,
+            confirmPassword,
             errors,
         } = this.state;
 
@@ -30,19 +35,26 @@ export default class UserSignUp extends Component {
                         elements={() => (
                             <React.Fragment>
                                 <input 
-                                    id="name"
-                                    name="name"
+                                    id="firstName"
+                                    name="firstName"
                                     type="text"
-                                    value={name}
+                                    value={firstName}
                                     onChange={this.change}
-                                    placeholder="Name" />
+                                    placeholder="First Name" />
+                                <input 
+                                    id="lastName"
+                                    name="lastName"
+                                    type="text"
+                                    value={lastName}
+                                    onChange={this.change}
+                                    placeholder="Last Name" />
                                 <input
-                                    id="username"
-                                    name="username"
+                                    id="emailAddress"
+                                    name="emailAddress"
                                     type="text"
-                                    value={username}
+                                    value={emailAddress}
                                     onChange={this.change}
-                                    placeholder="Username" />
+                                    placeholder="Email Address" />
                                 <input
                                     id="password"
                                     name="password"
@@ -50,6 +62,13 @@ export default class UserSignUp extends Component {
                                     value={password}
                                     onChange={this.change}
                                     placeholder="Password" />
+                                <input
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    type="password"
+                                    value={confirmPassword}
+                                    onChange={this.change}
+                                    placeholder="Confirm Password" />
                             </React.Fragment>
                         )} />
                     <p>
@@ -62,7 +81,29 @@ export default class UserSignUp extends Component {
 
     change = (event) => {
         const name = event.target.name;
-        const value = event.target.value;
+        const value = event.target.value.trim();
+
+        if(name === "firstName") {
+            const isValid = validators.nameValidator(value);
+            this.errorHandler(isValid, "First Name must be a valid name");
+        }
+        else if(name === "lastName") {
+            const isValid = validators.nameValidator(value);
+            this.errorHandler(isValid, "Last Name must be a valid last name");
+        } 
+        else if(name === "emailAddress") {
+            const isValid = validators.emailValidator(value);
+            this.errorHandler(isValid, "Email must be a valid email address");
+        }
+        else if(name === "password") {
+            const isValid = validators.passwordValidator(value);
+            this.errorHandler(isValid, "Password must be at least 8 characters long and must contain a combination of numbers, uppercase letters, lowercase letters, and special charaters such as @!+");
+        }
+        else if(name === "confirmPassword") {
+            const password = document.getElementById("password").value;
+            const isValid = validators.confirmPasswordValidator(password, value);
+            this.errorHandler(isValid, "Passwords do not match");
+        } 
 
         this.setState(() => {
             return {
@@ -105,5 +146,22 @@ export default class UserSignUp extends Component {
 
     cancel = () => {
         this.props.history.push('/');
+    }
+
+
+    //Check the errors array to offer real time validation to the form
+    errorHandler = (isValid, errorToDisplay) => {
+        let { errors } = this.state;
+
+        if (isValid) {
+            errors = errors.filter( error => {
+                return error !== errorToDisplay;
+            });
+        } else {
+            if(!errors.includes(errorToDisplay)) {
+                errors.push(errorToDisplay);
+            }
+        }
+        this.setState({ errors });
     }
 }
