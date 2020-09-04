@@ -973,14 +973,18 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 
 .hero-text-container button {
   background: transparent;
-	border: 1px solid #b7b7b7;
-	padding: 10px 20px;
-	color: #b7b7b7;
+  border: 1px solid #b7b7b7;
+  padding: 10px 20px;
+  color: #b7b7b7;
   border-radius: 3px;
 }
 
 .nav-content {
   display: inline-block;
+}
+
+.top-60 {
+  margin-top: 60px;
 }
 
  /* ==========================================================================
