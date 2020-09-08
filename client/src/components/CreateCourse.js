@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 import Form from './Form';
+import Cookies from 'js-cookie';
+import { Redirect } from 'react-router-dom';
 
 export default class CreateCourse extends Component {
     state = {
-        title: '',
-        description: '',
-        hours: "",
-        materials: "",
+        title: Cookies.getJSON('coursePayload') ? 
+                    Cookies.getJSON('coursePayload').title 
+                    : 
+                    '',
+        description: Cookies.getJSON('coursePayload') ? 
+                        Cookies.getJSON('coursePayload').description
+                        : 
+                        '',
+        hours: Cookies.getJSON('coursePayload') ? 
+                    Cookies.getJSON('coursePayload').hours 
+                    : 
+                    '',
+        materials: Cookies.getJSON('coursePayload') ? 
+                        Cookies.getJSON('coursePayload').materials 
+                        : 
+                        '',
         errors: [],
     };
 
@@ -24,7 +38,7 @@ export default class CreateCourse extends Component {
                         `${context.authenticatedUser.firstName} ${context.authenticatedUser.lastName}`
                         :
                         "Guest";
-
+        
         return (
             <div className="bounds course-detail">
                 <h1 className="top-60 grid-100">Create Course</h1>
@@ -113,6 +127,12 @@ export default class CreateCourse extends Component {
 
     cancel = () => {
         this.props.history.push('/');
+        this.setState(() => { 
+            return {
+              authenticatedUser: null,
+            }
+           });
+           Cookies.remove('coursePayload');
     }
 
     submit = () => {
@@ -122,6 +142,7 @@ export default class CreateCourse extends Component {
             description,
             hours,
             materials,
+            coursePayload,
         } = this.state;
 
         //New course payload
@@ -135,12 +156,21 @@ export default class CreateCourse extends Component {
         //Authenticated user
         let credentials = null;
         if(context.authenticatedUser) {
+            console.log(context);
             credentials = {
-                username: context.authenticatedUser.emailAddress,
+                username: context.authenticatedUser.username,
                 password: context.authenticatedUser.password
             };
+
+            console.log("credentials: ", credentials);
         } else {
-            this.props.history.push('/signin');
+            Cookies.set('coursePayload', JSON.stringify(course), { expires: 1 });
+            // const location = {
+            //     pathname: '/signin',
+            //     state: { from: window.location.href }
+            // }
+            // this.props.history.push(location);
+            this.props.history.push("/signin")
         }
 
         // context.data.createCourse(course )
