@@ -9,6 +9,7 @@ const routes = require('./routes');
 const userRoutes = require('./routes/users');
 const courseRoutes = require('./routes/courses');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
@@ -25,6 +26,9 @@ app.use(bodyParser.json());
 // serve up the public folder so we can request static
 // assets from the api
 app.use(express.static(`${rest_api_sql_dir}/public`));
+
+//middleware to manage cookies
+app.use(cookieParser());
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
