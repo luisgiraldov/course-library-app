@@ -97,7 +97,7 @@ export default class UserSignUp extends Component {
         }
         else if(name === "password") {
             const isValid = validators.passwordValidator(value);
-            this.errorHandler(isValid, "Password must be at least 8 characters long and must contain a combination of numbers, uppercase letters, lowercase letters, and special charaters such as @!+");
+            this.errorHandler(isValid, "Password must be at least 8 characters long and must contain a combination of numbers, uppercase letters, lowercase letters, and special charaters such as these @$!%*?&");
         }
         else if(name === "confirmPassword") {
             const password = document.getElementById("password").value;
@@ -134,14 +134,17 @@ export default class UserSignUp extends Component {
                 if(errors.length){
                     this.setState({ errors });
                 } else {
+                    console.log("Entro to signin!")
                     context.actions.signIn(emailAddress, password)
                         .then(() => {
-                            this.props.history.push('/authenticated');
+                            // this.props.history.push('/authenticated');
+                            this.props.history.goBack();
+                            console.log("it worked!!!!!!! ")
                         });
                 }
             })
             .catch( err => {
-                console.log(err);
+                console.log(err.stack);
                 this.props.history.push('/error');
             });
     }

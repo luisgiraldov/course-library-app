@@ -27,14 +27,14 @@ app.use(bodyParser.json());
 // assets from the api
 app.use(express.static(`${rest_api_sql_dir}/public`));
 
-//middleware to manage cookies
-app.use(cookieParser());
-
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
 //Enable all CORS Requests
 app.use(cors());
+
+//middleware to manage cookies
+app.use(cookieParser());
 
 //Add routes
 app.use('/', routes);

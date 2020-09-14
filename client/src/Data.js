@@ -20,7 +20,6 @@ export default class Data {
             const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
             options.headers['Authorization'] = `Basic ${encodedCredentials}`;
         }
-
         return fetch(url, options);
     }
 
@@ -48,6 +47,7 @@ export default class Data {
             });
         }
         else {
+            console.log("Is firing this error");
             throw new Error();
         }
     }

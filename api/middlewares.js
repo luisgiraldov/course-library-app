@@ -4,6 +4,7 @@ const auth = require('basic-auth');
 const models = require('./models');
 const { User, Course } = models;
 const { Op } = require('sequelize');
+const jwt = require('jsonwebtoken');
 
 //AsyncHandler
   /* Handler middleware to wrap each route and hanlde errors. */ 
@@ -18,6 +19,15 @@ const { Op } = require('sequelize');
       }
     };
   };
+
+//Create Token
+const maxAge =  24 * 60 * 60; //1 day in seconds, format needed in jwt
+const createToken = (id) => {
+  console.log("Entro a crear el token: ", id);
+  return jwt.sign({ id }, 'This secret will be public, just for this project', {
+    expiresIn: maxAge
+  })
+}
 
   //User authenticator
 const authenticateUser = async (req, res, next) => {
@@ -87,6 +97,7 @@ const authenticateUser = async (req, res, next) => {
 module.exports = { 
                     asyncHandler,
                     authenticateUser,
+                    createToken,
                 }
 
   
