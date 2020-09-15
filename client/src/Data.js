@@ -9,6 +9,7 @@ export default class Data {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
             },
+            credentials: 'include',
         };
 
         if (body !== null) {
@@ -47,7 +48,6 @@ export default class Data {
             });
         }
         else {
-            console.log("Is firing this error");
             throw new Error();
         }
     }

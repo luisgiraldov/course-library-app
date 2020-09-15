@@ -30,8 +30,25 @@ app.use(express.static(`${rest_api_sql_dir}/public`));
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
 
-//Enable all CORS Requests
-app.use(cors());
+//Enable CORS Requests to allowed domains
+const allowlist = [
+  'http://localhost:3000',
+];
+
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if(allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { 
+      origin: true,
+      allowedHeaders: ['Content-type', 'Authorization'],
+      credentials: true
+    } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } //disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+};
+app.use(cors(corsOptionsDelegate));
 
 //middleware to manage cookies
 app.use(cookieParser());

@@ -78,28 +78,25 @@ router.post('/users', [
         salt,
       }).then( data => {
         const token = createToken(data.id);
-        console.log("Token: ", token)
         // Set the cookie with the jwt (maxAge is One day in milliseconds, thats the format needed on cookies) and send it to the browser
-        //It should have secure set to true and samesite, but for this dev environment we will leave it without it
+        //It should have secure attribute set to true and samesite, but for this dev environment we will leave it without it
         res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
         // Set the status to 201 Created and end the response.
         res.status(201)
         .location('/')
+        .send({ token })
         .end();
       });
     } catch(error){
       if(error.name === "SequelizeValidationError") {
         const err = new Error(error.errors);
-        console.log(error.stack);
         err.status = 400;
         next(err);
       } else if(error.errors && error.errors[0].type === "unique violation"){
-          console.log("Aqui entro!!!");
           const err = new Error("There is a user associated to this email address!");
           err.status = 409;
           next(err);
       } else {
-          console.log("Error inside users: ");
             throw error;
         } 
     }
