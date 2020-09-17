@@ -7,15 +7,21 @@ const models = require('../models');
 const { User, Course } = models;
 const { Op } = require('sequelize');
 const router = express.Router();
-const { asyncHandler, authenticateUser, createToken} = require('../middlewares');
+const { asyncHandler, authenticateUser, createToken, verifyAuth} = require('../middlewares');
 
 router.get('/users', asyncHandler(async (req, res, next) => {
     //Authenticate the user before displaying it
-    await authenticateUser(req, res, next);
+    // await authenticateUser(req, res, next);
+    await verifyAuth(req, res, next);
     //retrieve the user
     const user = req.currentUser;
     if(user) {
+      const token = createToken(user.id);
+      // Set the cookie with the jwt (maxAge is One day in milliseconds, thats the format needed on cookies) and send it to the browser
+      //It should have secure attribute set to true and samesite, but for this dev environment we will leave it without it
+      res.cookie('jwt', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
       res.status(200).json({
+                id: user.id,
                 username: user.emailAddress,
                 firstName: user.firstName,
                 lastName: user.lastName
@@ -102,5 +108,11 @@ router.post('/users', [
     }
   }))(req, res, next);
 });
+
+router.get('/signout', asyncHandler( async(req, res, next) => {
+    //Reset the jwt stored in the browser to logout the user, setting the cookie to be empty and a maxAge of 1 millisecond
+    res.cookie('jwt', '', { maxAge: 1 }).send();
+  })
+);
 
 module.exports = router;

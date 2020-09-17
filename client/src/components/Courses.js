@@ -29,7 +29,7 @@ const Courses = ({ context }) => {
                                     <h2>{ id }</h2>
                                     <h3>{ course.title }</h3>
                                     <p>{ course.description }</p>
-                                    <Link to={`/api/courses/${id}`}>Read more</Link>
+                                    <Link to={`/courses/${id}`}>Read more</Link>
                                 </li>
                     })
                 }

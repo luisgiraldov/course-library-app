@@ -5,22 +5,26 @@ import { Redirect } from 'react-router-dom';
 
 export default class CreateCourse extends Component {
     state = {
-        title: Cookies.getJSON('coursePayload') ? 
-                    Cookies.getJSON('coursePayload').title 
-                    : 
-                    '',
-        description: Cookies.getJSON('coursePayload') ? 
-                        Cookies.getJSON('coursePayload').description
-                        : 
-                        '',
-        hours: Cookies.getJSON('coursePayload') ? 
-                    Cookies.getJSON('coursePayload').hours 
-                    : 
-                    '',
-        materials: Cookies.getJSON('coursePayload') ? 
-                        Cookies.getJSON('coursePayload').materials 
-                        : 
-                        '',
+        // title: Cookies.getJSON('coursePayload') ? 
+        //             Cookies.getJSON('coursePayload').title 
+        //             : 
+        //             '',
+        // description: Cookies.getJSON('coursePayload') ? 
+        //                 Cookies.getJSON('coursePayload').description
+        //                 : 
+        //                 '',
+        // estimatedTime: Cookies.getJSON('coursePayload') ? 
+        //             Cookies.getJSON('coursePayload').estimatedTime 
+        //             : 
+        //             '',
+        // materialsNeeded: Cookies.getJSON('coursePayload') ? 
+        //                 Cookies.getJSON('coursePayload').materialsNeeded 
+        //                 : 
+        //                 '',
+        title: '',
+        description: '',
+        estimatedTime: '',
+        materialsNeeded: '',
         errors: [],
     };
 
@@ -28,8 +32,8 @@ export default class CreateCourse extends Component {
         const {
             title,
             description,
-            hours,
-            materials,
+            estimatedTime,
+            materialsNeeded,
             errors,
         } = this.state;
 
@@ -83,22 +87,22 @@ export default class CreateCourse extends Component {
                                                 <h4>Estimated Time</h4>
                                                 <div>
                                                     <input
-                                                        id="hours"
-                                                        name="hours"
+                                                        id="estimatedTime"
+                                                        name="estimatedTime"
                                                         type="text"
                                                         className="course--time-input"
-                                                        value={hours}
+                                                        value={estimatedTime}
                                                         onChange={this.change}
-                                                        placeholder="Hours" />
+                                                        placeholder="Estimated Time" />
                                                 </div>
                                             </li>
                                             <li className="course--stats--list--item">
                                                 <h4>Materials Needed</h4>
                                                 <div>
                                                     <textarea
-                                                        id="materials"
-                                                        name="materials"
-                                                        value={materials}
+                                                        id="materialsNeeded"
+                                                        name="materialsNeeded"
+                                                        value={materialsNeeded}
                                                         onChange={this.change}
                                                         placeholder="List materials...">
                                                     </textarea>
@@ -140,37 +144,41 @@ export default class CreateCourse extends Component {
         const {
             title,
             description,
-            hours,
-            materials,
-            coursePayload,
+            estimatedTime,
+            materialsNeeded,
         } = this.state;
 
         //New course payload
         const course = {
             title,
             description,
-            hours,
-            materials,
+            estimatedTime,
+            materialsNeeded,
+            userId: context.authenticatedUser.id
         };
 
-        //Authenticated user
-        let credentials = null;
         if(context.authenticatedUser) {
-            console.log(context);
-            credentials = {
-                username: context.authenticatedUser.username,
-                password: context.authenticatedUser.password
-            };
-
-            console.log("credentials: ", credentials);
+            context.data.createCourse(course)
+                .then( errors => {
+                    if(errors.length) {
+                        this.setState({ errors });
+                    } else {
+                        // Cookies.remove('coursePayload');
+                        // this.props.history.push('/authenticated');
+                    }
+                })
+                .catch( err => {
+                    console.log(err.stack);
+                    this.props.history.push('/error');
+                });
         } else {
             Cookies.set('coursePayload', JSON.stringify(course), { expires: 1 });
-            // const location = {
-            //     pathname: '/signin',
-            //     state: { from: window.location.href }
-            // }
-            // this.props.history.push(location);
-            this.props.history.push("/signin")
+            const location = {
+                pathname: '/signin',
+                state: { from: window.location.href }
+            }
+            this.props.history.push(location);
+            // this.props.history.push("/signin")
         }
 
         // context.data.createCourse(course )

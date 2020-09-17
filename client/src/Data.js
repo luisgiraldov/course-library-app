@@ -73,7 +73,7 @@ export default class Data {
     }
 
     async createCourse(course, credentials) {
-        const response = await this.api('/courses', 'POST', course, true, credentials);
+        const response = await this.api('/courses', 'POST', course);
         if(response.status === 201) {
             return [];
         }
@@ -83,7 +83,13 @@ export default class Data {
             });
         }
         else {
+            console.log("Response: ", response);
             throw new Error();
         }
+    }
+
+    //make the signout request to the server, to clear the jwt stored in the browser
+    signout() {
+       this.api('/signout', 'GET');
     }
 }

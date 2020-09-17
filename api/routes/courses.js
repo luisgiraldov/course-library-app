@@ -6,7 +6,7 @@ const models = require('../models');
 const { User, Course } = models;
 const { Op } = require('sequelize');
 const router = express.Router();
-const { asyncHandler, authenticateUser} = require('../middlewares');
+const { asyncHandler, authenticateUser, verifyAuth} = require('../middlewares');
 
 //Route to get all courses and their owner
 router.get('/courses', asyncHandler(async (req, res) => {
@@ -72,11 +72,13 @@ router.post('/courses', [
     .withMessage('Please provide a value for "description"'),
   ], asyncHandler(async (req, res, next) => {
     //Authenticate user before posting on database
-    await authenticateUser(req, res, next);
+    // await authenticateUser(req, res, next);
+    await verifyAuth(req, res, next);
     const user = req.currentUser;
-
+    console.log(req.body);
     //If user authenticated continue the process, otherwise respond with unauthorized user
     if(!user){
+        console.log("Entro a user!");
         // Return to stop execution due to authentication error.
         return false;
     }
@@ -93,7 +95,7 @@ router.post('/courses', [
         return res.status(400).json({ errors: errorMessages }); 
     }
 
-    //Get the user from the request body
+    //Get the course from the request body
     const course = req.body;
 
     // Add the user to the database.
@@ -137,7 +139,7 @@ router.post('/courses', [
                     err.status = 400;
                     next(err);
             } else {
-                    // console.log(error.errors);
+                    console.log(error.errors);
                     throw error;
               }
         }

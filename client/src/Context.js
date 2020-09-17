@@ -48,6 +48,9 @@ export class Provider extends Component {
       }
 
     signOut = () => {
+        //make the signout request to the server
+        this.data.signout();
+        //update state
         this.setState(() => { 
           return {
             authenticatedUser: null,
