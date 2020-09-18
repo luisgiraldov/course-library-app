@@ -25,10 +25,11 @@ const Courses = ({ context }) => {
                     courses.map( course => {
                         const randomNumber = Math.floor(Math.random() * 4) + 1;
                         const id = course.id ? course.id.toString() : "";
+                        const description = course.description ? course.description.substring(0,250) : "";
                         return <li key={ id } className={"color" + randomNumber}>
                                     <h2>{ id }</h2>
                                     <h3>{ course.title }</h3>
-                                    <p>{ course.description }</p>
+                                    <p>{ description }...</p>
                                     <Link to={`/courses/${id}`}>Read more</Link>
                                 </li>
                     })

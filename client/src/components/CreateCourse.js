@@ -28,7 +28,7 @@ export default class CreateCourse extends Component {
         
         return (
             <div className="bounds course-detail">
-                <h1 className="top-60 grid-100">Create Course</h1>
+                <h1 className="top-60 grid-100 white-letters">Create Course</h1>
                 <Form 
                     cancel={this.cancel}
                     errors={errors}
