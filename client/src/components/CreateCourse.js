@@ -1,26 +1,9 @@
 import React, { Component } from 'react';
 import Form from './Form';
 import Cookies from 'js-cookie';
-import { Redirect } from 'react-router-dom';
 
 export default class CreateCourse extends Component {
     state = {
-        // title: Cookies.getJSON('coursePayload') ? 
-        //             Cookies.getJSON('coursePayload').title 
-        //             : 
-        //             '',
-        // description: Cookies.getJSON('coursePayload') ? 
-        //                 Cookies.getJSON('coursePayload').description
-        //                 : 
-        //                 '',
-        // estimatedTime: Cookies.getJSON('coursePayload') ? 
-        //             Cookies.getJSON('coursePayload').estimatedTime 
-        //             : 
-        //             '',
-        // materialsNeeded: Cookies.getJSON('coursePayload') ? 
-        //                 Cookies.getJSON('coursePayload').materialsNeeded 
-        //                 : 
-        //                 '',
         title: '',
         description: '',
         estimatedTime: '',
@@ -120,7 +103,7 @@ export default class CreateCourse extends Component {
 
     change = (event) => {
         const name = event.target.name;
-        const value = event.target.value.trim();
+        const value = event.target.value;
 
         this.setState(() => {
             return {
@@ -148,12 +131,13 @@ export default class CreateCourse extends Component {
             materialsNeeded,
         } = this.state;
 
+
         //New course payload
         const course = {
-            title,
-            description,
-            estimatedTime,
-            materialsNeeded,
+            title: title.trim(),
+            description: description.trim(),
+            estimatedTime: estimatedTime.trim(),
+            materialsNeeded: materialsNeeded.trim(),
             userId: context.authenticatedUser.id
         };
 
@@ -172,7 +156,6 @@ export default class CreateCourse extends Component {
                     this.props.history.push('/error');
                 });
         } else {
-            Cookies.set('coursePayload', JSON.stringify(course), { expires: 1 });
             const location = {
                 pathname: '/signin',
                 state: { from: window.location.href }
@@ -180,21 +163,5 @@ export default class CreateCourse extends Component {
             this.props.history.push(location);
             // this.props.history.push("/signin")
         }
-
-        // context.data.createCourse(course )
-        //     .then( errors => {
-        //         if(errors.length){
-        //             this.setState({ errors });
-        //         } else {
-        //             context.actions.signIn(emailAddress, password)
-        //                 .then(() => {
-        //                     this.props.history.push('/authenticated');
-        //                 });
-        //         }
-        //     })
-        //     .catch( err => {
-        //         console.log(err);
-        //         this.props.history.push('/error');
-        //     });
     }
 }
