@@ -38,7 +38,7 @@ const Courses = ({ context }) => {
                             <h2>+</h2>
                             <h3>Add New Course</h3>
                             <p>Ready with your new class, create your new course here!</p>
-                            <Link to={`#`}>Add</Link>
+                            <Link to={`/courses/create`}>Add</Link>
                 </li>
             </ul>
         </div>

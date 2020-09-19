@@ -75,7 +75,6 @@ router.post('/courses', [
     // await authenticateUser(req, res, next);
     await verifyAuth(req, res, next);
     const user = req.currentUser;
-    console.log(req.body);
     //If user authenticated continue the process, otherwise respond with unauthorized user
     if(!user){
         console.log("Entro a user!");
@@ -156,7 +155,7 @@ router.post('/courses', [
         .withMessage('Please provide a value for "description"'),
     ], asyncHandler( async(req, res, next) => {
         //Authenticate user before posting on database
-        await authenticateUser(req, res, next);
+        await verifyAuth(req, res, next);
         const user = req.currentUser;
 
         //If user authenticated continue the process, otherwise respond with unauthorized user
@@ -189,7 +188,7 @@ router.post('/courses', [
                 });
             }
 
-            if(user.id != getCourse.userId) {
+            if(user.id !== getCourse.userId) {
                 // Return to stop execution due to authentication error.
                 return res.status(403).json({
                     message: "User is not authorized to modify this course"
