@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import Cookies from 'js-cookie';
-
 
 export default class CreateCourse extends Component {
     state = {
@@ -37,7 +35,7 @@ export default class CreateCourse extends Component {
                 <Form 
                     cancel={this.cancel}
                     errors={errors}
-                    submit={this.submit}
+                    submit={this.handleSubmit}
                     submitButtonText="Update Course"
                     elements={() => (
                             <div>
@@ -102,9 +100,41 @@ export default class CreateCourse extends Component {
                             </div>
                     )} 
                 />
-                <div className="modal-container"></div>
+                <div className="modal-container">
+                    <div className="modal">
+                        <button type="button" id="modal-close-btn" className="modal-close-btn"><strong>X</strong></button>
+                        <div className="modal-info-container">
+                            <h3 className="modal-text">Are you sure you want to update this course?</h3>
+                            <div className="modal-btn-container">
+                                <button type="button" 
+                                        className="button modal-update" 
+                                        onClick={() => {
+                                            this.handleSubmit(true);
+                                        }}>
+                                        Update
+                                </button>
+                                <button type="button" 
+                                        className="button button-secondary modal-cancel"
+                                        onClick={this.cancel}>
+                                        Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
+    }
+
+    handleSubmit = (confirm = false) => {
+        const modal = document.querySelector('.modal-container');
+        if(confirm) {
+            modal.classList.remove('is-open');
+            this.submit();
+        } else {
+            modal.classList.add('is-open');
+        }
+
     }
 
     courseDetails = () => {
@@ -141,13 +171,8 @@ export default class CreateCourse extends Component {
     }
 
     cancel = () => {
-        this.props.history.push('/');
-        this.setState(() => { 
-            return {
-              authenticatedUser: null,
-            }
-           });
-           Cookies.remove('coursePayload');
+        const modal = document.querySelector('.modal-container');
+        modal.classList.remove('is-open');
     }
 
     submit = () => {

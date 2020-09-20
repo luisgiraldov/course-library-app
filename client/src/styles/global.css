@@ -983,6 +983,84 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   display: inline-block;
 }
 
+/* ===================================== 
+   Modal
+======================================== */
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  /* display: none; */
+
+  transform: translateY(-250%);
+  opacity: 0; 
+  transition: all .7s ease;
+}
+
+.modal-container.is-open {
+  transform: translateY(0%);
+  opacity: 1;
+  transition: all .7s ease; 
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  text-align: center;
+  width: 95%;
+  max-width: 420px;
+  min-height: 215px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 0.25em;
+  border: 1px solid rgba(100, 100, 100, 0.3);
+  transition: .4s ease-out;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.8);
+  outline: none;
+  border-radius: 0.25em;
+  border: 1px solid rgba(50, 50, 50, 0.3);
+}
+
+.modal-text {
+  font-size: 1.8rem;
+  color: rgba(50, 50, 50, 0.7);
+  margin: 30px 0;
+}
+
+.modal-cancel {
+  color:rgb(50, 50, 50, 0.7);
+  transition: all 0.4s;
+}
+
+.modal-cancel:hover {
+  color: rgb(50, 50, 50, 0.7);
+  background-color: #E0E0DE;
+}
+
+.modal-update,
+.modal-delete {
+  margin-right: 15px;
+}
+
+.is-open {
+  display: block;
+}
+
  /* ==========================================================================
   Helper Classes
   ========================================================================== */
@@ -1013,6 +1091,14 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   .course--detail {
     margin-top: 0;
   }
+
+  .modal {
+    padding: 10px;
+  }
+
+  .modal-close-btn {
+    display: none;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -1020,11 +1106,17 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   .hero-background {
     display: block;
   }
-  .hero-text-container {
+  /* Center content vertically */
+  .hero-text-container,
+  .modal {
     position:absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); 
     padding: 4rem
+  }
+
+  .modal-close-btn {
+    display: inline-block;
   }
 }
