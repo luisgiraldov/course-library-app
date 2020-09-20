@@ -171,8 +171,8 @@ export default class CreateCourse extends Component {
     }
 
     cancel = () => {
-        // const { from } = this.props.location.state || { from: { pathname: '/' } };
-        this.props.history.goBack();
+        const { from } = this.props.location.state || { from: { pathname: '/' } };
+        this.props.history.replace(from);
     }
 
     closeModal = () => {

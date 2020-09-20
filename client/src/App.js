@@ -13,7 +13,6 @@ import withContext from './Context';
 import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
-import Authenticated from './components/Authenticated';
 import PrivateRoute from './PrivateRoute';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
@@ -30,8 +29,6 @@ const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 //Connect UserSignOut to context
 const UserSignOutWithContext = withContext(UserSignOut);
-//Connect Authenticated to context
-const AuthWithContext = withContext(Authenticated);
 //Connect CreateCourse to context
 const CreateCourseWithContext = withContext(CreateCourse);
 //Connect UpdateCourse to context

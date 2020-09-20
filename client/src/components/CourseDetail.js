@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { Link } from 'react-router-dom';
 
 
+//This functional component destructure context and history from props.
 const CourseDetails = ({ context, history }) => {
     const [course, setCourse] = useState({
         title: "Loading...",
@@ -41,12 +42,20 @@ const CourseDetails = ({ context, history }) => {
                         <div className="grid-100">
                             <span>
                                 <button className="button" onClick={ () => {
-                                    history.push(`${id}/update`);
+                                    modifyCourse({
+                                                    route: `${id}/update`,
+                                                    courseID: id,
+                                                    history
+                                                });
                                 }}>
                                     Update Course
                                 </button>
                                 <button className="button" onClick={ () => {
-                                    history.push(`${id}/delete`);
+                                    modifyCourse({
+                                                    route: `${id}/delete`, 
+                                                    courseID: id,
+                                                    history
+                                                });
                                 }}>
                                     Delete Course
                                 </button>
@@ -92,6 +101,14 @@ const CourseDetails = ({ context, history }) => {
                 </div> 
             </div>
     );
+};
+
+const modifyCourse = (data) => {
+        const location = {
+            pathname: data.route,
+            state: { from: "/courses/" + data.courseID }
+        };
+        data.history.push(location);
 };
 
 export default CourseDetails;
