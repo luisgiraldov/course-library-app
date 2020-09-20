@@ -102,7 +102,7 @@ export default class CreateCourse extends Component {
                 />
                 <div className="modal-container">
                     <div className="modal">
-                        <button type="button" id="modal-close-btn" className="modal-close-btn"><strong>X</strong></button>
+                        <button type="button" id="modal-close-btn" className="modal-close-btn" onClick={this.closeModal}><strong>X</strong></button>
                         <div className="modal-info-container">
                             <h3 className="modal-text">Are you sure you want to update this course?</h3>
                             <div className="modal-btn-container">
@@ -115,7 +115,7 @@ export default class CreateCourse extends Component {
                                 </button>
                                 <button type="button" 
                                         className="button button-secondary modal-cancel"
-                                        onClick={this.cancel}>
+                                        onClick={this.closeModal}>
                                         Cancel
                                 </button>
                             </div>
@@ -171,6 +171,11 @@ export default class CreateCourse extends Component {
     }
 
     cancel = () => {
+        // const { from } = this.props.location.state || { from: { pathname: '/' } };
+        this.props.history.goBack();
+    }
+
+    closeModal = () => {
         const modal = document.querySelector('.modal-container');
         modal.classList.remove('is-open');
     }

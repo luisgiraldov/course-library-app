@@ -3,8 +3,7 @@ import '../styles/global.css';
 import { Link } from 'react-router-dom';
 
 
-const CourseDetails = ({ context }) => {
-
+const CourseDetails = ({ context, history }) => {
     const [course, setCourse] = useState({
         title: "Loading...",
         User: {
@@ -41,10 +40,14 @@ const CourseDetails = ({ context }) => {
                     <div className="bounds">
                         <div className="grid-100">
                             <span>
-                                <button className="button">
+                                <button className="button" onClick={ () => {
+                                    history.push(`${id}/update`);
+                                }}>
                                     Update Course
                                 </button>
-                                <button className="button">
+                                <button className="button" onClick={ () => {
+                                    history.push(`${id}/delete`);
+                                }}>
                                     Delete Course
                                 </button>
                             </span>
