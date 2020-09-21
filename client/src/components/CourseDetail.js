@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 //This functional component destructure context and history from props.
 const CourseDetails = ({ context, history }) => {
+    let canUpdate = null;
     const [course, setCourse] = useState({
         title: "Loading...",
         User: {
@@ -18,8 +19,13 @@ const CourseDetails = ({ context, history }) => {
     useEffect( () => {
         context.data.getCourseDetails(id)
             .then( data => setCourse(data.CourseFound[0]) )
-            .catch( err => console.log('Error!', err) );
+            .catch( err => console.log('Error!', err) )
     }, [context.data, id]);
+
+    useEffect( () => {
+        context.actions.recordPath();
+        // eslint-disable-next-line
+    }, []);
 
     // Get the list of materials, and give them an id to pass key to react
     let materialsNeeded = course.materialsNeeded ? 
@@ -33,33 +39,39 @@ const CourseDetails = ({ context, history }) => {
             material: item, 
         }
         return item;
-    })
+    });
+
+    if(context.authenticatedUser && course.userId === context.authenticatedUser.id){
+        canUpdate = true;
+    }
 
     return (
             <div>
                 <div className="actions--bar">
                     <div className="bounds">
                         <div className="grid-100">
-                            <span>
-                                <button className="button" onClick={ () => {
-                                    modifyCourse({
-                                                    route: `${id}/update`,
-                                                    courseID: id,
-                                                    history
-                                                });
-                                }}>
-                                    Update Course
-                                </button>
-                                <button className="button" onClick={ () => {
-                                    modifyCourse({
-                                                    route: `${id}/delete`, 
-                                                    courseID: id,
-                                                    history
-                                                });
-                                }}>
-                                    Delete Course
-                                </button>
-                            </span>
+                            { canUpdate ? 
+                                <span>
+                                    <button className="button" onClick={ () => {
+                                        modifyCourse({
+                                            pathname: `${id}/update`,
+                                            history
+                                        });
+                                    }}>
+                                        Update Course
+                                    </button>
+                                    <button className="button" onClick={ () => {
+                                        modifyCourse({
+                                            pathname: `${id}/delete`,
+                                            history
+                                        });
+                                    }}>
+                                        Delete Course
+                                    </button>
+                                </span> 
+                                :
+                                ''
+                            }
                             <Link className="button button-secondary" to="/">Return to List</Link>
                         </div>
                     </div>
@@ -103,10 +115,11 @@ const CourseDetails = ({ context, history }) => {
     );
 };
 
+//set the location to go to, when clicking update or delete buttons, and also sends a previous path to go back when signin
 const modifyCourse = (data) => {
         const location = {
-            pathname: data.route,
-            state: { from: "/courses/" + data.courseID }
+            pathname: data.pathname,
+            state: { from: window.location.pathname }
         };
         data.history.push(location);
 };

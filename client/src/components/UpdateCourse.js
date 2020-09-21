@@ -10,6 +10,7 @@ export default class CreateCourse extends Component {
         errors: [],
     };
 
+    //Get course's details when loading
     componentDidMount(){
         this.courseDetails();
     }
@@ -171,8 +172,9 @@ export default class CreateCourse extends Component {
     }
 
     cancel = () => {
-        const { from } = this.props.location.state || { from: { pathname: '/' } };
-        this.props.history.replace(from);
+        const { context } = this.props;
+        const { from } = this.props.location.state || { from: { pathname: context.pathname } };
+        this.props.history.push(from);
     }
 
     closeModal = () => {
@@ -205,7 +207,7 @@ export default class CreateCourse extends Component {
                         this.setState({ errors });
                     } else {
                         // Cookies.remove('coursePayload');
-                        // this.props.history.push('/authenticated');
+                        this.props.history.push(context.coursePath);
                     }
                 })
                 .catch( err => {
@@ -215,10 +217,9 @@ export default class CreateCourse extends Component {
         } else {
             const location = {
                 pathname: '/signin',
-                state: { from: window.location.href }
+                state: { from: window.location.pathname }
             }
             this.props.history.push(location);
-            // this.props.history.push("/signin")
         }
     }//End submit
 }// End class

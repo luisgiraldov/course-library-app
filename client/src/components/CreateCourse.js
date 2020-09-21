@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Form from './Form';
-import Cookies from 'js-cookie';
 
 export default class CreateCourse extends Component {
     state = {
@@ -119,7 +118,6 @@ export default class CreateCourse extends Component {
               authenticatedUser: null,
             }
            });
-           Cookies.remove('coursePayload');
     }
 
     submit = () => {
@@ -147,8 +145,7 @@ export default class CreateCourse extends Component {
                     if(errors.length) {
                         this.setState({ errors });
                     } else {
-                        // Cookies.remove('coursePayload');
-                        // this.props.history.push('/authenticated');
+                        this.props.history.push(context.coursePath);
                     }
                 })
                 .catch( err => {
@@ -158,7 +155,7 @@ export default class CreateCourse extends Component {
         } else {
             const location = {
                 pathname: '/signin',
-                state: { from: window.location.href }
+                state: { from: window.location.pathname }
             }
             this.props.history.push(location);
             // this.props.history.push("/signin")

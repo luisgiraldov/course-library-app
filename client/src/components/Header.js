@@ -3,7 +3,6 @@ import '../styles/global.css';
 import { Link } from 'react-router-dom';
 
 const Header = ({ context }) => {
-
     return (
         <div className="header">
             <div className="bounds">
@@ -12,7 +11,7 @@ const Header = ({ context }) => {
                     { context.authenticatedUser ?
                         <div className="nav-content"><span>Welcome, { context.authenticatedUser.firstName }!</span><Link to="/signout">Sign Out</Link></div>
                       : 
-                        <div className="nav-content"><span>Welcome, Guest!</span><Link className="signin" to="/signin">Sign In</Link><Link className="signup" to="/signup">Sign Up</Link></div>
+                        <div className="nav-content"><span>Welcome, Guest!</span><Link className="signin" to={"/signin"}>Sign In</Link><Link className="signup" to="/signup">Sign Up</Link></div>
                     }
                 </nav>
             </div>

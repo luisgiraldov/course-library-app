@@ -2,7 +2,7 @@
 const bcryptjs = require('bcryptjs');
 const auth = require('basic-auth');
 const models = require('./models');
-const { User, Course } = models;
+const { User } = models;
 const { Op } = require('sequelize');
 const jwt = require('jsonwebtoken');
 
@@ -30,9 +30,7 @@ const createToken = (id) => {
 
 //Verify token for authentication
 const verifyAuth = async (req, res, next) => {
-  console.log("Llego a verifyAuth!");
   const token = req.cookies.jwt;
-  console.log("Token: ", token);
   
   //check json web token exists and is verified
   if(token) {
@@ -41,7 +39,6 @@ const verifyAuth = async (req, res, next) => {
         console.log(err.message);
         await authenticateUser(req, res, next);
       } else {
-        console.log("token decoded: ", decodedToken);
         await User.findAll({
           where: {
             id: {
@@ -62,14 +59,12 @@ const verifyAuth = async (req, res, next) => {
     });
   } else {
     await authenticateUser(req, res, next);
-    console.log("no funciono!"); 
   }
 };
 
 //User authenticator
 const authenticateUser = async (req, res, next) => {
   let message = null;
-  console.log("Entro a authenticateUser");
 
   // Parse the user's credentials from the Authorization header.
   const credentials = auth(req);

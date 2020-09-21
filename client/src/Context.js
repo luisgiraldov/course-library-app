@@ -12,18 +12,21 @@ export class Provider extends Component {
     }
 
     state = {
-        authenticatedUser: Cookies.getJSON('authenticatedUser') || null
+        authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
+        coursePath: null
     };
 
     render() {
-        const { authenticatedUser } = this.state;
+        const { authenticatedUser, coursePath } = this.state;
         const value = {
             authenticatedUser,
+            coursePath,
             data: this.data,
             actions: {
                 //Add the 'actions' property and object
                 signIn: this.signIn,
                 signOut: this.signOut,
+                recordPath: this.recordPath
             }
         };
         
@@ -58,14 +61,22 @@ export class Provider extends Component {
          });
          Cookies.remove('authenticatedUser');
     }
+
+    recordPath = () => {
+        this.setState(() => {
+            return {
+                coursePath: window.location.pathname
+            }
+        });
+    }
 }
 
 export const Consumer = Context.Consumer;
-// /**
-//  * A higher-order component that wraps the provided component in a Context Consumer component.
-//  * @param {class} Component - A React component.
-//  * @returns {function} A higher-order component.
-//  */
+/**
+* A higher-order component that wraps the provided component in a Context Consumer component.
+* @param {class} Component - A React component.
+* @returns {function} A higher-order component.
+*/
 
  export default function withContext(Component) {
     return function contextComponent(props) {
