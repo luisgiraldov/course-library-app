@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500,700,900');
 /* line 7, ../sass/reset.sass */
 a,
 abbr,
@@ -1062,14 +1063,15 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 }
 
 /* ==========================================================================
-  Not Found
+  Not Found styles taken from https://codepen.io/THEORLAN2/pen/zqOLXQ
   ========================================================================== */
 .not-found-container {
+  display: none;
   height: 100%;
   margin:0px auto;
   padding: 0px;
   text-align:center;
-  /* background-color: #D4D9ED; */
+  background-color: #D4D9ED;
 }
 
 .cont_principal {
@@ -1111,7 +1113,7 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   -webkit-transition-delay: 0.5s;
 }
 
-.cont_error > button {
+.cont_error > a {
   position: relative;
   left:100%;
   /* opacity: 0; */
@@ -1154,7 +1156,7 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   left:0%;
 }
 
-.cont_error_active > .cont_error > button {
+.cont_error_active > .cont_error > a {
   left:0%;
   /* opacity: 1; */
 }
@@ -1248,6 +1250,93 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   }
 }
 
+/* ==========================================================================
+  Forbidden design taken from https://codepen.io/claireremmert/pen/MqzOxJ/
+  ========================================================================== */
+  :root { --hole-distance: 25px; }
+
+  #hole1 { top: var(--hole-distance); left: var(--hole-distance);}
+  #hole2 { top: var(--hole-distance); right: var(--hole-distance);}
+  #hole3 { bottom: var(--hole-distance); left: var(--hole-distance);}
+  #hole4 { bottom: var(--hole-distance); right: var(--hole-distance);}
+
+  .hole {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    border-radius: 50%;
+    background-image: radial-gradient(circle at 99%, #f4f4f4 10%, grey 70%);
+    transform: rotate(45deg);
+  }
+
+  #sign-wrapper {
+    display: none;
+    background-color: #f4f4f4;
+    position: relative;
+    width: 80%;
+    min-width: 340px;
+    max-width: 800px;
+    height: 90%;
+    margin: 2% auto;
+    padding: 50px;
+    border: 1px solid #e9ecf0;
+    border-radius: 45px;
+    box-shadow: 5px 5px 10px #000;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1rem;
+  }
+  
+  #header-forbidden {
+    background-color: #ef5350;
+    padding: 20px;
+    border-radius: 30px 30px 0 0;
+    text-align: center;
+  }
+
+  .h1-forbidden {
+    text-transform: uppercase;
+    color: #f4f4f4;
+    font-size: 5.5em;
+    line-height: .9em;
+    letter-spacing: 3px;
+    margin: 0;
+    font-weight: 900;
+  }
+
+  .strike {
+    position: absolute;
+    width: 25%;
+    height: 10px;
+    background-color: #fff;
+  }
+  #strike1 { top: 115px; left: 80px; }
+  #strike2 { top: 115px; right: 80px; }
+  
+  #sign-body-forbidden {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  #copy-container-forbidden   { flex-basis: 60%; }
+  #circle-container-forbidden { flex-basis: 40%; }
+
+  .h2-forbidden, 
+  .p-forbidden {
+    text-align: center;
+    color: #1d1e22;
+  }
+
+  .h2-forbidden {
+    font-size: 3em;
+    text-transform: uppercase;
+    margin: 40px 0;
+    line-height: .9em;
+  }
+
+  .p-forbidden {
+      font-size: 20px; 
+  }
+
  /* ==========================================================================
   Helper Classes
   ========================================================================== */
@@ -1258,6 +1347,18 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 
 .white-letters {
   color: white;
+}
+
+.small-devices-layout {
+  display: block;
+  text-align: center;
+  margin: 30px;
+  color: white;
+}
+
+.home-page-button {
+  text-align: center;
+  padding: 20px;
 }
 
  /* ==========================================================================
@@ -1305,5 +1406,17 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 
   .modal-close-btn {
     display: inline-block;
+  }
+
+  #sign-wrapper {
+    display: block;
+  }
+
+  .not-found-container {
+    display: block;
+  }
+
+  .small-devices-layout {
+    display: none;
   }
 }

@@ -172,8 +172,11 @@ export default class CreateCourse extends Component {
     }
 
     cancel = () => {
-        const { context } = this.props;
-        const { from } = this.props.location.state || { from: { pathname: context.pathname } };
+        // const { context } = this.props;
+        // let { from } = this.props.location.state || { from: { pathname: context.pathname } };
+        const pathArray = window.location.pathname.split('/');
+        const id = pathArray[pathArray.length - 2];
+        const from = `/courses/${id}`;
         this.props.history.push(from);
     }
 
