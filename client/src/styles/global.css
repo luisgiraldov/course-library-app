@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:500,700,900');
+:root { 
+  /* Forbidden */
+  --hole-distance: 25px; 
+  /* Error */
+  --main-color: #262a2b;
+  --stroke-color: white;
+}
 /* line 7, ../sass/reset.sass */
 a,
 abbr,
@@ -1253,7 +1260,6 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 /* ==========================================================================
   Forbidden design taken from https://codepen.io/claireremmert/pen/MqzOxJ/
   ========================================================================== */
-  :root { --hole-distance: 25px; }
 
   #hole1 { top: var(--hole-distance); left: var(--hole-distance);}
   #hole2 { top: var(--hole-distance); right: var(--hole-distance);}
@@ -1337,9 +1343,393 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
       font-size: 20px; 
   }
 
- /* ==========================================================================
-  Helper Classes
+/* ==========================================================================
+  Error page, design taken from https://codepen.io/gaiaayan/pen/QVVxaR
   ========================================================================== */
+.h1-error-page {
+  margin: 100px auto 0 auto;
+  color: var(--stroke-color);
+  font-size: 10rem; line-height: 10rem;
+  font-weight: 200;
+  text-align: center;
+}
+
+.h2-error-page {
+  margin: 20px auto 30px auto;
+  font-size: 1.5rem;
+  font-weight: 200;
+  text-align: center;
+}
+
+.h1-error-page,
+.h2-error-page {
+  -webkit-transition: opacity 0.5s linear, margin-top 0.5s linear; /* Safari */
+  transition: opacity 0.5s linear, margin-top 0.5s linear;
+}
+
+.loading .h1-error-page, .loading .h2-error-page {
+  margin-top: 0px;
+  opacity: 0;  
+}
+
+.gears {
+  position: relative;
+  margin: 0 auto;
+  width: auto; height: 0;
+}
+
+.gear {
+  position: relative;
+  z-index: 0;
+  width: 120px; height: 120px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--stroke-color);
+}
+
+.gear:before{
+  position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;
+  z-index: 2;
+  content: "";
+  border-radius: 50%;
+  background: var(--main-color);
+}
+
+.gear:after {
+  position: absolute; left: 25px; top: 25px;
+  z-index: 3;
+  content: "";
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  border: 5px solid var(--stroke-color);
+  box-sizing: border-box;
+  background: var(--main-color);
+}
+
+.gear.one {
+  left: -130px;
+}
+.gear.two {
+  top: -75px;
+}
+.gear.three {
+  top: -235px;
+  left: 130px;
+}
+.gear .bar {
+  position: absolute; left: -15px; top: 50%;
+  z-index: 0;
+  width: 150px; height: 30px;
+  margin-top: -15px;
+  border-radius: 5px;
+  background: var(--stroke-color);
+}
+
+.gear .bar:before {
+  position: absolute; left: 5px; top: 5px; right: 5px; bottom: 5px;
+  z-index: 1;
+  content: "";
+  border-radius: 2px;
+  background: var(--main-color);
+}
+.gear .bar:nth-child(2) {
+  transform: rotate(60deg);
+  -webkit-transform: rotate(60deg);
+}
+.gear .bar:nth-child(3) {
+  transform: rotate(120deg);
+  -webkit-transform: rotate(120deg);
+}
+
+@-webkit-keyframes clockwise {
+  0% { -webkit-transform: rotate(0deg);}
+  100% { -webkit-transform: rotate(360deg);}
+}
+
+@-o-keyframes clockwise {
+  0% { -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);}
+  100% { -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);}
+}
+
+@-moz-keyframes clockwise {
+  0% { -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);}
+  100% { -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);}
+}
+
+@keyframes clockwise {
+  0% { -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);}
+  100% { -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);}
+}
+
+@-webkit-keyframes anticlockwise {
+  0% { -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg)
+  }
+}
+
+@-o-keyframes anticlockwise {
+  0% { -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg)
+  }
+}
+
+@-moz-keyframes anticlockwise {
+  0% { -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg)
+  }
+}
+
+@keyframes anticlockwise {
+  0% { -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg)
+  }
+}
+
+@-webkit-keyframes clockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  40% { -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+  }
+  60% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@-o-keyframes clockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  40% { -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+  }
+  60% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@-moz-keyframes clockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  40% { -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+  }
+  60% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes clockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  40% { -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+  }
+  60% { -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes anticlockwiseErrorStop {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@-o-keyframes anticlockwiseErrorStop {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@-moz-keyframes anticlockwiseErrorStop {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes anticlockwiseErrorStop {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@-webkit-keyframes anticlockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  40% { -webkit-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@-o-keyframes anticlockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  40% { -webkit-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+@-moz-keyframes anticlockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  40% { -webkit-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes anticlockwiseError {
+  0% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  20% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  40% { -webkit-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+  }
+  60% { -webkit-transform: rotate(-30deg);
+    transform: rotate(-30deg);
+  }
+  100% { -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+.gear.one {
+  -webkit-animation: anticlockwiseErrorStop 2s linear infinite;
+  animation: anticlockwiseErrorStop 2s linear infinite;
+}
+.gear.two {
+  -webkit-animation: anticlockwiseError 2s linear infinite;
+  animation: anticlockwiseErrorStop 2s linear infinite;
+}
+.gear.three {
+  -webkit-animation: clockwiseError 2s linear infinite;
+  animation: anticlockwiseErrorStop 2s linear infinite;
+}
+.loading .gear.one, .loading .gear.three {
+  -webkit-animation: clockwise 3s linear infinite;
+  animation: anticlockwiseErrorStop 2s linear infinite;
+}
+.loading .gear.two {
+  -webkit-animation: anticlockwise 3s linear infinite;
+  animation: anticlockwiseErrorStop 2s linear infinite;
+}
+
+/* ==========================================================================
+Helper Classes
+========================================================================== */
 
 .top-60 {
   margin-top: 60px;
