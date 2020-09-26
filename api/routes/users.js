@@ -33,23 +33,29 @@ router.get('/users', asyncHandler(async (req, res, next) => {
 // Route that creates a new user.
 router.post('/users', [
   check('firstName')
-  .exists({ checkNull: true, checkFalsy: true })
-  .withMessage('Please provide a value for "firstName"'),
+    .exists({ checkNull: true, checkFalsy: true })
+    .withMessage('Please provide a value for "firstName"'),
+  body('firstName')
+    .trim()
+    .escape(),
   check('lastName')
-  .exists({ checkNull: true, checkFalsy: true})
-  .withMessage('Please provide a value for "lastName"'),
+    .exists({ checkNull: true, checkFalsy: true})
+    .withMessage('Please provide a value for "lastName"'),
+  body('lastName')
+    .trim()
+    .escape(),
   check('emailAddress')
-  .exists({ checkNull: true, checkFalsy: true })
-  .withMessage('Please provide a value for "emailAddress"'),
+    .exists({ checkNull: true, checkFalsy: true })
+    .withMessage('Please provide a value for "emailAddress"'),
   body('emailAddress')
-  .isEmail()
-  .withMessage('Please provide a valid email address'),
+    .isEmail()
+    .withMessage('Please provide a valid email address'),
   check('password')
-  .exists({ checkNull: true, checkFalsy: true })
-  .withMessage('Please provide a value for "password"'),
+    .exists({ checkNull: true, checkFalsy: true })
+    .withMessage('Please provide a value for "password"'),
   check('password')
-  .isLength({min: 8, max: undefined})
-  .withMessage('Password must be 8 characters long or more')
+    .isLength({min: 8, max: undefined})
+    .withMessage('Password must be 8 characters long or more')
 ], (req, res, next) => {
   
   // Attempt to get the validation result from the Request object.

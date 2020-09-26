@@ -141,11 +141,13 @@ export default class CreateCourse extends Component {
 
         if(context.authenticatedUser) {
             context.data.createCourse(course)
-                .then( errors => {
-                    if(errors.length) {
+                .then( data => {
+                    if(data.errors) {
+                        const errors = data.errors;
                         this.setState({ errors });
                     } else {
-                        this.props.history.push(context.coursePath);
+                        console.log('Course created!');
+                        this.props.history.push(data.link);
                     }
                 })
                 .catch( err => {
@@ -158,7 +160,6 @@ export default class CreateCourse extends Component {
                 state: { from: window.location.pathname }
             }
             this.props.history.push(location);
-            // this.props.history.push("/signin")
         }
     }
 }

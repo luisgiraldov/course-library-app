@@ -1060,7 +1060,7 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
   background-color: #E0E0DE;
 }
 
-.modal-update,
+.modal-modify,
 .modal-delete {
   margin-right: 15px;
 }
@@ -1728,6 +1728,133 @@ background: linear-gradient(to right, #0ABFBC, #FC354C);
 }
 
 /* ==========================================================================
+Loading animation taken from https://codepen.io/bbckn/pen/QWNqGPP
+========================================================================== */
+
+.loading-container {
+  display: flex;
+}
+
+.circle-loading {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  margin: 12px;
+  animation: jump 0.5s ease-in infinite;
+}
+
+.circle-loading:nth-of-type(1) {
+  background-color: rgb(20, 101, 106);
+}
+
+.circle-loading:nth-of-type(2) {
+  animation-delay: 0.1s;
+  background-color: rgb(250, 114, 104);
+}
+
+.circle-loading:nth-of-type(3) {
+  animation-delay: 0.2s;
+  background-color: rgb(148, 219, 223);
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-40px);
+  }
+}
+
+
+/* ==========================================================================
+checkmark animation taken from https://codepen.io/elevaunt/pen/VvKdVa
+========================================================================== */
+.delete-container {
+  position: relative;
+  height: 100vh;
+}
+
+.checkmark {
+  width: 300px;
+  display: block;
+  margin: 40px auto 0;
+}
+
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+}
+
+.circle {
+  -webkit-animation: dash .9s ease-in-out;
+  animation: dash .9s ease-in-out;
+}
+
+.line {
+  stroke-dashoffset: 1000;
+  -webkit-animation: dash .9s .35s ease-in-out forwards;
+  animation: dash .9s .35s ease-in-out forwards;
+}
+
+.check {
+  stroke-dashoffset: -100;
+  -webkit-animation: dash-check .9s .35s ease-in-out forwards;
+  animation: dash-check .9s .35s ease-in-out forwards;
+}
+
+.text-checkmark {
+  text-align: center;
+  margin: 20px 0 60px;
+  font-size: 1.25em;
+}
+
+.success-checkmark {
+  color: #73AF55;
+}
+
+.error-checkmark {
+  color: #D06079;
+}
+
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+
+/* ==========================================================================
 Helper Classes
 ========================================================================== */
 
@@ -1749,6 +1876,15 @@ Helper Classes
 .home-page-button {
   text-align: center;
   padding: 20px;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
  /* ==========================================================================

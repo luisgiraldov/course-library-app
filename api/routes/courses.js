@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const { check, validationResult } = require('express-validator');
+const { check, body, validationResult } = require('express-validator');
 const models = require('../models');
 const { User, Course } = models;
 const { Op } = require('sequelize');
@@ -65,11 +65,28 @@ router.get('/courses/:id', asyncHandler(async (req, res, next) => {
 //Route that creates a new course
 router.post('/courses', [
     check('title')
-    .exists({ checkNull: true, checkFalsy: true })
-    .withMessage('Please provide a value for "title"'),
+        .exists({ checkNull: true, checkFalsy: true })
+        .withMessage('Please provide a value for "title"'),
+    body('title')
+        .trim()
+        .escape(),
     check('description')
-    .exists({ checkNull: true, checkFalsy: true})
-    .withMessage('Please provide a value for "description"'),
+        .exists({ checkNull: true, checkFalsy: true})
+        .withMessage('Please provide a value for "description"'),
+    body('description')
+        .trim()
+        .escape(),
+    body('estimatedTime')
+        .optional()
+        .trim()
+        .escape(),
+    body('materialsNeeded')
+        .optional()
+        .trim()
+        .escape(),
+    body('userId')
+        .trim()
+        .escape(),
   ], asyncHandler(async (req, res, next) => {
     //Authenticate user before posting on database
     // await authenticateUser(req, res, next);
@@ -77,7 +94,6 @@ router.post('/courses', [
     const user = req.currentUser;
     //If user authenticated continue the process, otherwise respond with unauthorized user
     if(!user){
-        console.log("Entro a user!");
         // Return to stop execution due to authentication error.
         return false;
     }
@@ -118,10 +134,11 @@ router.post('/courses', [
                     const created = data[1];
                     if(created){
                         // Set the status to 201 Created and end the response.
-                        res.status(201)
-                        .location(`/api/courses/${courseReturned.id}`)
+                        res.status(201).json({
+                            link: `/courses/${courseReturned.id}`
+                        });
                         // .location('/')
-                        .end();
+                        // .end();
                     } else {
                         const err = new Error("Course already exists!");
                         err.status = 409;
@@ -148,11 +165,25 @@ router.post('/courses', [
   //Route to update Course
   router.put('/courses/:id', [
         check('title')
-        .exists({ checkNull: true, checkFalsy: true })
-        .withMessage('Please provide a value for "title"'),
+            .exists({ checkNull: true, checkFalsy: true })
+            .withMessage('Please provide a value for "title"'),
+        body('title')
+            .trim()
+            .escape(),
         check('description')
-        .exists({ checkNull: true, checkFalsy: true})
-        .withMessage('Please provide a value for "description"'),
+            .exists({ checkNull: true, checkFalsy: true})
+            .withMessage('Please provide a value for "description"'),
+        body('description')
+            .trim()
+            .escape(),
+        body('estimatedTime')
+            .optional()
+            .trim()
+            .escape(),
+        body('materialsNeeded')
+            .optional()
+            .trim()
+            .escape(),
     ], asyncHandler( async(req, res, next) => {
         //Authenticate user before posting on database
         await verifyAuth(req, res, next);
@@ -209,6 +240,8 @@ router.post('/courses', [
                 });
         } catch(error){
             if(error.name === "SequelizeValidationError") {
+                console.log("Entro a error validator");
+                console.log("error: ", error);
                 const err = new Error(error.errors);
                 err.status = 400;
                 next(err);
@@ -222,7 +255,7 @@ router.post('/courses', [
   //Route to delete course
   router.delete('/courses/:id', asyncHandler( async(req, res, next) => {
     //Authenticate user before deleting
-    await authenticateUser(req, res, next);
+    await verifyAuth(req, res, next);
     const user = req.currentUser;
 
     //If user authenticated continue the process, otherwise respond with unauthorized user

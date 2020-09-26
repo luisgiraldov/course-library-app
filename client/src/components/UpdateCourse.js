@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Form from './Form';
 
-export default class CreateCourse extends Component {
+export default class UpdateCourse extends Component {
     state = {
         title: '',
         description: '',
@@ -24,12 +24,12 @@ export default class CreateCourse extends Component {
             errors,
         } = this.state;
 
-        const { context } = this.props;
+        const { context } = this.props; 
         const user = context.authenticatedUser ? 
                         `${context.authenticatedUser.firstName} ${context.authenticatedUser.lastName}`
                         :
                         "Guest";
-        
+
         return (
             <div className="bounds course-detail">
                 <h1 className="top-60 grid-100 white-letters">Update Course</h1>
@@ -125,8 +125,9 @@ export default class CreateCourse extends Component {
                 </div>
             </div>
         );
-    }
+    }//end Render
 
+    //function to verify if user wants to update
     handleSubmit = (confirm = false) => {
         const modal = document.querySelector('.modal-container');
         if(confirm) {
@@ -138,26 +139,40 @@ export default class CreateCourse extends Component {
 
     }
 
+    closeModal = () => {
+        const modal = document.querySelector('.modal-container');
+        modal.classList.remove('is-open');
+    }
+
     courseDetails = () => {
         const { context } = this.props;
         const pathArray = window.location.pathname.split('/');
         const id = pathArray[pathArray.length - 2];
-
-        context.data.getCourseDetails(id)
+        if(id) {
+            context.data.getCourseDetails(id)
             .then( data => {
-                const course = data.CourseFound[0];
-
-                this.setState(() => {
-                    return {
-                        title: course.title,
-                        description: course.description,
-                        estimatedTime: course.estimatedTime,
-                        materialsNeeded: course.materialsNeeded
-                    };
-                });
-
+                if(data) {
+                    const course = data.CourseFound[0];
+                    if(context.authenticatedUser && context.authenticatedUser.id === course.userId) {
+                        console.log("Authorized");
+                        this.setState(() => {
+                            return {
+                                title: course.title,
+                                description: course.description,
+                                estimatedTime: course.estimatedTime,
+                                materialsNeeded: course.materialsNeeded
+                            };
+                        });
+                    } else {
+                        console.log("Not authorized");
+                        this.props.history.replace("/forbidden");
+                    } 
+                } else {
+                    this.props.history.push('/notfound');
+                }
             })
             .catch( err => console.log('Error!', err) );
+        }
     }
 
     change = (event) => {
@@ -178,11 +193,6 @@ export default class CreateCourse extends Component {
         const id = pathArray[pathArray.length - 2];
         const from = `/courses/${id}`;
         this.props.history.push(from);
-    }
-
-    closeModal = () => {
-        const modal = document.querySelector('.modal-container');
-        modal.classList.remove('is-open');
     }
 
     submit = () => {
@@ -209,7 +219,6 @@ export default class CreateCourse extends Component {
                     if(errors.length) {
                         this.setState({ errors });
                     } else {
-                        // Cookies.remove('coursePayload');
                         this.props.history.push(context.coursePath);
                     }
                 })
