@@ -62,6 +62,7 @@ export class Provider extends Component {
          Cookies.remove('authenticatedUser');
     }
 
+    //record the actual path of the URL
     recordPath = () => {
         this.setState(() => {
             return {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import ReactMarkdown from 'react-markdown';
 
 //This functional component destructure context and history from props.
 const CourseDetails = ({ context, history }) => {
@@ -27,10 +27,10 @@ const CourseDetails = ({ context, history }) => {
             .catch( err => console.log('Error!', err) )
     }, [context.data, id, history]);
 
-    useEffect( () => {
-        context.actions.recordPath();
-        // eslint-disable-next-line
-    }, []);
+    // useEffect( () => {
+    //     context.actions.recordPath();
+    //     // eslint-disable-next-line
+    // }, []);
 
     // Get the list of materials, and give them an id to pass key to react
     let materialsNeeded = course.materialsNeeded ? 
@@ -91,8 +91,9 @@ const CourseDetails = ({ context, history }) => {
                             <p>By {`${course.User.firstName} ${course.User.lastName}`}</p>
                         </div>
                         <div className="course--description">
+                            {/* Component to display markdown formatted text. */}
+                            <ReactMarkdown source={course.description} />
                             {/* <p>{course.description}</p> */}
-
                         </div>
                     </div>
                     <div className="grid-25 grid-right small-devices">
@@ -108,7 +109,9 @@ const CourseDetails = ({ context, history }) => {
                                         {
                                             materialsNeeded.map( item => {
                                                 return <li key={item.id}>
-                                                    {item.material}
+                                                    {/* Component to display markdown formatted text. */}
+                                                    <ReactMarkdown source={item.material} />
+                                                    {/* {item.material} */}
                                                 </li>
                                             })
                                         }
@@ -157,7 +160,7 @@ const modifyCourse = (data) => {
         data.history.push(location);
 };
 
-//function to verify user wants to delete, it displays a modal
+//function to verify if user wants to delete, it displays a modal
 const handleSubmit = (data) => {
     const modal = document.querySelector('.modal-container');
     if(data.confirm) {

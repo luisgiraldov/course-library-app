@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/global.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Courses = ({ context }) => {
 
@@ -10,8 +10,18 @@ const Courses = ({ context }) => {
             .then(data => setCourses(data.Courses))
             .catch(err => console.log('Error!', err));
     }, [context.data]);
+    
+    const history = useHistory();
 
-    return(
+    //track location to use when redirecting back to previous page
+    useEffect(() => {
+        return history.listen((location) => { 
+            // console.log(`You changed the page to: ${location.pathname}`);
+            context.actions.recordPath();
+        }) 
+    },[history, context]);
+
+    return (
         <div>
             <div className="hero-background">
             </div>
@@ -25,6 +35,7 @@ const Courses = ({ context }) => {
                     courses.map( course => {
                         const randomNumber = Math.floor(Math.random() * 4) + 1;
                         const id = course.id ? course.id.toString() : "";
+                        // display course description up to 250 characters
                         const description = course.description ? course.description.substring(0,250) : "";
                         return <li key={ id } className={"color" + randomNumber}>
                                     <h2>{ id }</h2>

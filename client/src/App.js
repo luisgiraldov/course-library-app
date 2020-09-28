@@ -19,7 +19,7 @@ import UpdateCourse from './components/UpdateCourse';
 import DeleteCourse from './components/DeleteCourse';
 import NotFound from './components/NotFound';
 import Forbidden from './components/Forbidden';
-import Error from './components/Error';
+import UnhandledError from './components/UnhandledError';
 
 //Connect the Header component to context
 const HeaderWithContext = withContext(Header);
@@ -50,17 +50,15 @@ export default () => (
         <Route exact path="/" component={CoursesWithContext} />
         <PrivateRoute exact path="/courses/create" component={CreateCourseWithContext} />
         <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <PrivateRoute exact path="/courses/:id/delete" component={DeleteCourseWithContext} />
         <Route exact path="/courses/:id" component={CourseDetailWithContext} />
-        <Route exact path="/courses/:id/delete" component={DeleteCourseWithContext} />
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />
         <Route path="/forbidden" component={Forbidden} />
-        <Route path="/error" component={Error} />
-        <Route path="/notfound" component={NotFound} />
+        <Route path="/error" component={UnhandledError} />
         <Route component={NotFound} />
       </Switch>
     </div>
   </Router>
 );
-

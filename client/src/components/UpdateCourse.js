@@ -78,7 +78,7 @@ export default class UpdateCourse extends Component {
                                                         name="estimatedTime"
                                                         type="text"
                                                         className="course--time-input"
-                                                        value={estimatedTime}
+                                                        value={estimatedTime || ""}
                                                         onChange={this.change}
                                                         placeholder="Estimated Time" />
                                                 </div>
@@ -89,7 +89,7 @@ export default class UpdateCourse extends Component {
                                                     <textarea
                                                         id="materialsNeeded"
                                                         name="materialsNeeded"
-                                                        value={materialsNeeded}
+                                                        value={materialsNeeded || ""}
                                                         onChange={this.change}
                                                         placeholder="List materials...">
                                                     </textarea>
@@ -144,6 +144,7 @@ export default class UpdateCourse extends Component {
         modal.classList.remove('is-open');
     }
 
+    //Get course's details to display on the page
     courseDetails = () => {
         const { context } = this.props;
         const pathArray = window.location.pathname.split('/');
@@ -224,7 +225,12 @@ export default class UpdateCourse extends Component {
                 })
                 .catch( err => {
                     console.log(err.stack);
-                    this.props.history.push('/error');
+                    console.log(err.message);
+                    if(err.message === 'Not authorized') {
+                        this.props.history.push('/forbidden');
+                    } else {
+                        this.props.history.push('/error');
+                    }
                 });
         } else {
             const location = {

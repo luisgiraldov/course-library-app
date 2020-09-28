@@ -62,6 +62,7 @@ export default class DeleteCourse extends Component {
         );
     }
 
+    //Get course's details
     courseDetails = () => {
         const { context } = this.props;
         const pathArray = window.location.pathname.split('/');
@@ -113,7 +114,12 @@ export default class DeleteCourse extends Component {
                 })
                 .catch( err => {
                     console.log('Error!', err);
-                    this.props.history.push('/error');
+                    console.log(err.message);
+                    if(err.message === 'Not authorized') {
+                        this.props.history.push('/forbidden');
+                    } else {
+                        this.props.history.push('/error');
+                    }
                 });
         } else {
             this.props.history.push('/error');

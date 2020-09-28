@@ -67,6 +67,9 @@ export default class Data {
         if(response.status === 200) {
             return response.json().then(data => data);
         }
+        else if(response.status === 404) {
+            return null;
+        }
         else {
             throw new Error();
         }
@@ -84,6 +87,9 @@ export default class Data {
                 return { errors: data.errors}
             });
         }
+        else if(response.status === 401) {
+            throw new Error('Not authorized');
+        }
         else {
             throw new Error();
         }
@@ -95,10 +101,12 @@ export default class Data {
             return [];
         }
         else if(response.status === 400) {
-            console.log("Response: ", response);
             return response.json().then(data => {
                 return data.errors;
             });
+        }
+        else if(response.status === 401) {
+           throw new Error('Not authorized');
         }
         else {
             throw new Error();
@@ -114,6 +122,9 @@ export default class Data {
             return response.json().then(data => {
                 return data.errors;
             });
+        }
+        else if(response.status === 401) {
+            throw new Error('Not authorized');
         }
         else {
             throw new Error();

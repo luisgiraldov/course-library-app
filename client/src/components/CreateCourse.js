@@ -152,7 +152,12 @@ export default class CreateCourse extends Component {
                 })
                 .catch( err => {
                     console.log(err.stack);
-                    this.props.history.push('/error');
+                    console.log(err.message);
+                    if(err.message === 'Not authorized') {
+                        this.props.history.push('/forbidden');
+                    } else {
+                        this.props.history.push('/error');
+                    }
                 });
         } else {
             const location = {

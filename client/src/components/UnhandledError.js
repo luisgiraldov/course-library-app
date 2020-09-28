@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const Error = () => {
+const UnhandledError = () => {
 
     useEffect( () => {
         setTimeout(function(){
@@ -47,4 +47,4 @@ const Error = () => {
     );
 };
 
-export default Error;
+export default UnhandledError;

@@ -65,6 +65,10 @@ export default class UserSignIn extends Component {
     //The emailAddress is used as the username.
     submit = () => {
         const { context } = this.props;
+        //update location's state to as redirect to previous page
+        if(context.coursePath && context.coursePath !== window.location.pathname) {
+            this.props.location.state = { from: context.coursePath };
+        }
         const { from } = this.props.location.state || { from: { pathname: "/" } };
         const { emailAddress, password } = this.state;
         context.actions.signIn(emailAddress, password)
