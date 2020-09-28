@@ -220,7 +220,7 @@ export default class UpdateCourse extends Component {
                     if(errors.length) {
                         this.setState({ errors });
                     } else {
-                        this.props.history.push(context.coursePath);
+                        this.props.history.push(`/courses/${id}`);
                     }
                 })
                 .catch( err => {
