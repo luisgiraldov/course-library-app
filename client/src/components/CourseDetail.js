@@ -27,25 +27,6 @@ const CourseDetails = ({ context, history }) => {
             .catch( err => console.log('Error!', err) )
     }, [context.data, id, history]);
 
-    // useEffect( () => {
-    //     context.actions.recordPath();
-    //     // eslint-disable-next-line
-    // }, []);
-
-    // Get the list of materials, and give them an id to pass key to react
-    let materialsNeeded = course.materialsNeeded ? 
-                            course.materialsNeeded.split(", ") 
-                            : 
-                            ["N/A"];
-
-    materialsNeeded = materialsNeeded.map( (item, index) => {
-        item = {
-            id: index,
-            material: item, 
-        }
-        return item;
-    });
-
     if(context.authenticatedUser && course.userId === context.authenticatedUser.id){
         canUpdate = true;
     }
@@ -105,17 +86,9 @@ const CourseDetails = ({ context, history }) => {
                                 </li>
                                 <li className="course--stats--list--item">
                                     <h4>Materials Needed</h4>
-                                    <ul>
-                                        {
-                                            materialsNeeded.map( item => {
-                                                return <li key={item.id}>
-                                                    {/* Component to display markdown formatted text. */}
-                                                    <ReactMarkdown source={item.material} />
-                                                    {/* {item.material} */}
-                                                </li>
-                                            })
-                                        }
-                                    </ul>
+
+                                    <ReactMarkdown source={course.materialsNeeded} />
+
                                 </li>
                             </ul>
                         </div>

@@ -209,10 +209,14 @@ export default class UpdateCourse extends Component {
         //Course payload
         const course = {
             title: title.trim(),
-            description: description.trim(),
-            estimatedTime: estimatedTime.trim(),
-            materialsNeeded: materialsNeeded.trim()
+            description: description.trim()
         };
+        if(estimatedTime !== null && estimatedTime !== undefined) {
+            course.estimatedTime = estimatedTime.trim();
+        }
+        if(materialsNeeded !== null && materialsNeeded !== undefined) {
+            course.materialsNeeded = materialsNeeded.trim();
+        }
 
         if(context.authenticatedUser) {
             context.data.updateCourse(id, course)
