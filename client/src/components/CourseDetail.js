@@ -24,7 +24,10 @@ const CourseDetails = ({ context, history }) => {
                     history.push('/notfound');
                 }
             })
-            .catch( err => console.log('Error!', err) )
+            .catch( err => {
+                console.log('Error!', err);
+                history.push("/error");
+            });
     }, [context.data, id, history]);
 
     if(context.authenticatedUser && course.userId === context.authenticatedUser.id){

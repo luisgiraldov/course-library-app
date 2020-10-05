@@ -172,7 +172,10 @@ export default class UpdateCourse extends Component {
                     this.props.history.push('/notfound');
                 }
             })
-            .catch( err => console.log('Error!', err) );
+            .catch( err => {
+                console.log('Error!', err);
+                this.props.history.push("/error");
+            });
         }
     }
 

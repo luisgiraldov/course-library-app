@@ -528,7 +528,7 @@ p {
 .course--description h2,
 .course--description h3 {
   font-family: "Work Sans", sans-serif;
-  color: #222;
+  color: #b7b7b7;
   margin-bottom: 30px;
 }
 /* line 235, ../sass/global.sass */
@@ -821,7 +821,8 @@ body {
 	font-size: 16px;
 	line-height: 18px;
 	color: #b7b7b7;
-	margin-top: 5px;
+  margin-top: 5px;
+  overflow: hidden;
 }
 .tilesWrap li a {
   display: inline-block;

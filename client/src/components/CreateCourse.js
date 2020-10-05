@@ -134,10 +134,14 @@ export default class CreateCourse extends Component {
         const course = {
             title: title.trim(),
             description: description.trim(),
-            estimatedTime: estimatedTime.trim(),
-            materialsNeeded: materialsNeeded.trim(),
             userId: context.authenticatedUser.id
         };
+        if(estimatedTime !== null && estimatedTime !== undefined) {
+            course.estimatedTime = estimatedTime.trim();
+        }
+        if(materialsNeeded !== null && materialsNeeded !== undefined) {
+            course.materialsNeeded = materialsNeeded.trim();
+        }
 
         if(context.authenticatedUser) {
             context.data.createCourse(course)
